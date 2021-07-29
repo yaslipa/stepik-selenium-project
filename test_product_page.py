@@ -16,12 +16,9 @@ def test_guest_should_see_add_to_basket_btn(browser):
     page.should_be_add_to_basket_btn()
 
 
-@pytest.mark.parametrize('offer_number',
-                         [*range(7),
-                          pytest.param(7, marks=pytest.mark.xfail),
-                          8, 9])
-def test_guest_can_add_product_to_basket(browser, offer_number):
-    link = f'{MAIN_URL}/catalogue/coders-at-work_207/?promo=offer{offer_number}'
+@pytest.mark.need_review
+def test_guest_can_add_product_to_basket(browser):
+    link = f'{MAIN_URL}/catalogue/coders-at-work_207/?promo=newYear20'
     page = ProductPage(browser, link)
     page.open()
     page.should_not_be_success_message()
@@ -46,7 +43,7 @@ def test_guest_cant_see_success_message(browser):
     page.should_not_be_success_message()
 
 
-@pytest.mark.skip(reason='Success message do not disappear now')
+@pytest.mark.skip(reason='Success message does not disappear now')
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link = f'{MAIN_URL}/catalogue/the-shellcoders-handbook_209/'
     page = ProductPage(browser, link)
@@ -63,6 +60,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = f'{MAIN_URL}/catalogue/the-city-and-the-stars_95/'
     page = ProductPage(browser, link)
@@ -83,6 +81,7 @@ def test_guest_can_see_product_in_basket_opened_from_product_page(browser):
     basket_page.should_be_basket_form()
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = f'{MAIN_URL}/catalogue/the-shellcoders-handbook_209/'
     page = ProductPage(browser, link)
@@ -112,6 +111,7 @@ class TestUserAddToBasketFromProductPage:
         page.open()
         page.should_not_be_success_message()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = f'{MAIN_URL}/catalogue/coders-at-work_207/'
         page = ProductPage(browser, link)
